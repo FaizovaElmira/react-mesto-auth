@@ -3,28 +3,20 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import PopupWithForm from "./PopupWithForm";
 import useFormAndValidation from "../hooks/useFormAndValidation";
 
-
 function EditProfilePopup({ isOpen, onClose, onUpdateUser, buttonText }) {
   const currentUser = useContext(CurrentUserContext);
-  const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
-
-  const setIsValid = resetForm;
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation();
 
   useEffect(() => {
-    if (isOpen) {
-      resetForm({
-        name: currentUser.name || '',
-        about: currentUser.about || '',
-      }, {}, true);
+    if (currentUser) {
+      resetForm(currentUser, {}, true);
     }
-  }, [currentUser, isOpen, resetForm]);
+  }, [isOpen, currentUser, resetForm]);
 
   function handleSubmit(event) {
     event.preventDefault();
-    onUpdateUser({
-      name: values.name,
-      about: values.about,
-    });
+    onUpdateUser(values);
   }
 
   return (
@@ -35,39 +27,43 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, buttonText }) {
       onClose={onClose}
       buttonText={buttonText}
       onSubmit={handleSubmit}
-      isDisabledSubmitButton={!isValid || !values.name || !values.about}
+      isDisabledSubmitButton={!isValid}
     >
       <input
-        className={`form__input ${errors.name && "form__input_type_error"}`}
+        className={`form__input ${
+          errors.name ? " form__input_type_error" : ""
+        }`}
         type="text"
         name="name"
         id="name"
         placeholder="Имя"
-        value={values.name || ''}
+        value={values.name || ""}
         onChange={handleChange}
         required
         minLength="2"
         maxLength="40"
       />
-      <span className={`form__error ${errors.name && "form__error_visible"}`}>
+      <span
+        className={`form__error ${errors.name ? " form__error_visible" : ""}`}
+      >
         {errors.name}
       </span>
       <input
         className={`form__input ${
-          errors.about && "form__input_type_error"
+          errors.about ? " form__input_type_error" : ""
         }`}
         type="text"
         name="about"
         id="about"
         placeholder="О себе"
-        value={values.about || ''}
+        value={values.about || ""}
         onChange={handleChange}
         required
         minLength="2"
         maxLength="200"
       />
       <span
-        className={`form__error ${errors.about && "form__error_visible"}`}
+        className={`form__error ${errors.about ? " form__error_visible" : ""}`}
       >
         {errors.about}
       </span>

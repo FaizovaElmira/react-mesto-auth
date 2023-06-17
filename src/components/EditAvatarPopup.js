@@ -4,34 +4,32 @@ import PopupWithForm from "./PopupWithForm";
 
 function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, buttonText }) {
   const avatarRef = useRef();
-  const { values, handleChange, errors, isValid, resetForm } = useFormAndValidation();
+  const { values, handleChange, errors, isValid, resetForm } =
+    useFormAndValidation();
 
-  useEffect(() => { 
-    if (isOpen) { 
-      avatarRef.current.value = ""; 
-      resetForm();
-    }
+  useEffect(() => {
+    resetForm();
   }, [isOpen, resetForm]);
 
   function handleSubmit(event) {
     event.preventDefault();
-    onUpdateAvatar({
-      avatar: avatarRef.current.value, 
-    });
+    onUpdateAvatar(values);
   }
 
   return (
     <PopupWithForm
       title="Обновить аватар"
-      name="avatar"
+      name="edit-avatar"
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
       buttonText={buttonText}
-      isDisabledSubmitButton={!isValid || !values.avatar}
+      isDisabledSubmitButton={!isValid}
     >
       <input
-        className={`form__input ${errors.avatar && "form__input_type_error"}`}
+        className={`form__input${
+          errors.avatar ? " form__input_type_error" : ""
+        }`}
         type="url"
         name="avatar"
         id="avatar"
@@ -39,8 +37,11 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, buttonText }) {
         ref={avatarRef}
         onChange={handleChange}
         required
+        value={values.avatar || ""}
       />
-      <span className={`form__error ${errors.avatar && "form__error_visible"}`}>
+      <span
+        className={`form__error${errors.avatar ? " form__error_visible" : ""}`}
+      >
         {errors.avatar}
       </span>
     </PopupWithForm>
@@ -48,4 +49,3 @@ function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar, buttonText }) {
 }
 
 export default EditAvatarPopup;
-

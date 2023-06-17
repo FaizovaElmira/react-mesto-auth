@@ -90,7 +90,7 @@ function App() {
     api
       .editUserInfo(user)
       .then((user) => {
-        setCurrentUser({ name: user.name, about: user.about });
+        setCurrentUser({ ...user, avatar: currentUser.avatar });
         closeAllPopups();
       })
       .catch((err) => {
@@ -106,7 +106,7 @@ function App() {
     api
       .updateAvatar(user)
       .then((res) => {
-        setCurrentUser(res);
+        setCurrentUser({ ...currentUser, avatar: res.avatar });
         closeAllPopups();
       })
       .catch((error) => {
