@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import Header from "./Header";
+import Register from "./Register";
+import Login from "./Login";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithConfirmation from "./PopupWithConfirmation";
@@ -22,6 +25,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [email, setEmail] = useState("");
 
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getCards()])
@@ -160,58 +165,73 @@ function App() {
       });
   }
 
+  function handleSignOut() {
+
+  }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className="page">
-        <Header />
-        <Main
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          cards={cards}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDeleteClick}
-        />
+      <BrowserRouter>
+        <div className="page">
+          <Header
+            email={email}
+            isLoggedIn={isLoggedIn}
+            onSignOut={handleSignOut}
+          />
+          <Routes>
+            <Route path="/sign-up" element={<Register />} />
+            <Route path="/sign-in" element={<Login />} />
+            <Route
+              path="/"
+              element={
+                <>
+                  <Main
+                    onEditProfile={handleEditProfileClick}
+                    onAddPlace={handleAddPlaceClick}
+                    onEditAvatar={handleEditAvatarClick}
+                    onCardClick={handleCardClick}
+                    cards={cards}
+                    onCardLike={handleCardLike}
+                    onCardDelete={handleCardDeleteClick}
+                  />
+                </>
+              }
+            />
+          </Routes>
+          <Footer isLoggedIn={isLoggedIn} />
 
-        <Footer />
-
-        <EditAvatarPopup
-          onUpdateAvatar={handleUpdateAvatar}
-          isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-          buttonText={!isLoading ? "Сохранить" : "Сохранение..."}
-        />
-
-        <EditProfilePopup
-          onUpdateUser={handleUpdateUser}
-          isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}
-          buttonText={!isLoading ? "Сохранить" : "Сохранение..."}
-        />
-
-        <AddPlacePopup
-          onAddCard={handleAddCard}
-          isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
-          buttonText={!isLoading ? "Создать" : "Создание..."}
-        />
-
-        <PopupWithConfirmation
-          onConfirmation={handleCardDelete}
-          isOpen={isPopupWithConfirmationOpen}
-          onClose={closeAllPopups}
-          buttonText={!isLoading ? "Да" : "Удаление..."}
-        />
-
-        <ImagePopup
-          card={selectedCard}
-          isOpen={isImagePopupOpen}
-          onClose={closeAllPopups}
-        />
-      </div>
+          <EditAvatarPopup
+            onUpdateAvatar={handleUpdateAvatar}
+            isOpen={isEditAvatarPopupOpen}
+            onClose={closeAllPopups}
+            buttonText={!isLoading ? "Сохранить" : "Сохранение..."}
+          />
+          <EditProfilePopup
+            onUpdateUser={handleUpdateUser}
+            isOpen={isEditProfilePopupOpen}
+            onClose={closeAllPopups}
+            buttonText={!isLoading ? "Сохранить" : "Сохранение..."}
+          />
+          <AddPlacePopup
+            onAddCard={handleAddCard}
+            isOpen={isAddPlacePopupOpen}
+            onClose={closeAllPopups}
+            buttonText={!isLoading ? "Создать" : "Создание..."}
+          />
+          <PopupWithConfirmation
+            onConfirmation={handleCardDelete}
+            isOpen={isPopupWithConfirmationOpen}
+            onClose={closeAllPopups}
+            buttonText={!isLoading ? "Да" : "Удаление..."}
+          />
+          <ImagePopup
+            card={selectedCard}
+            isOpen={isImagePopupOpen}
+            onClose={closeAllPopups}
+          />
+        </div>
+      </BrowserRouter>
     </CurrentUserContext.Provider>
   );
 }
-
 export default App;
