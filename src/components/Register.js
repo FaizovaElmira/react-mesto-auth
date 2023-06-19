@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import * as auth from "../utils/auth";
 
 function Register() {
   const [formValue, setFormValue] = useState({
@@ -16,9 +17,16 @@ function Register() {
     });
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    navigate("/sign-in");
+  function handleSubmit(event) {
+    event.preventDefault();
+    auth
+      .register(formValue.password, formValue.email)
+      .then(() => {
+        navigate("/sign-in");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (

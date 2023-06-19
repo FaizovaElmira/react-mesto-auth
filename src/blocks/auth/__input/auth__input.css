@@ -1,4 +1,6 @@
 .auth__input {
+  width: 100%;
+  height: 59px;
   margin: 0;
   padding: 34px 0 8px;
   border: none;
@@ -10,11 +12,8 @@
   border-bottom: 2px solid #ccc;
   box-sizing: border-box;
   background-color: #000;
-  width: 100%;
-  height: 59px;
 }
 
 .auth__input:focus {
   outline: none;
-  background-color: #000;
 }

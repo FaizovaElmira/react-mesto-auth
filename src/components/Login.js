@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import * as auth from "../utils/auth";
 
-function Login({ handleLogin }) {
+const Login = ({ handleLogin }) => {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
@@ -9,17 +10,26 @@ function Login({ handleLogin }) {
 
   const navigate = useNavigate();
 
-  function handleChange(e) {
+  const handleChange = (e) => {
     setFormValue({
       ...formValue,
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    auth
+      .authorize(formValue.password, formValue.email)
+      .then((res) => {
+        localStorage.setItem("token", res.token);
+        handleLogin();
         navigate("/");
-      }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div className="auth">
@@ -51,6 +61,6 @@ function Login({ handleLogin }) {
       </form>
     </div>
   );
-}
+};
 
 export default Login;
