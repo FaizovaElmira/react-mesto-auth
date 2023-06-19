@@ -32,6 +32,22 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      auth
+        .checkToken(token)
+        .then((res) => {
+          if (res) {
+            setLoggedIn(true);
+            navigate("/");
+            setEmail(res.data.email);
+          }
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
+  
+  useEffect(() => {
     Promise.all([api.getUserInfo(), api.getCards()])
       .then(([user, cards]) => {
         setCurrentUser(user);
