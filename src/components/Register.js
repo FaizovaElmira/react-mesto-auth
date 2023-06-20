@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as auth from "../utils/auth";
 
-function Register() {
+function Register({ handleRegistration, setIsSuccess, setToolTipPopupOpen }) {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
@@ -22,9 +22,14 @@ function Register() {
     auth
       .register(formValue.password, formValue.email)
       .then(() => {
+        handleRegistration();
+        setIsSuccess(true);
+        setToolTipPopupOpen(true);
         navigate("/sign-in");
       })
       .catch((err) => {
+        setIsSuccess(false);
+        setToolTipPopupOpen(true);
         console.log(err);
       });
   }

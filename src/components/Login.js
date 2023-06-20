@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import * as auth from "../utils/auth";
 
-const Login = ({ handleLogin }) => {
+const Login = ({ handleLogin, setEmail, setToolTipPopupOpen }) => {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
@@ -27,7 +27,8 @@ const Login = ({ handleLogin }) => {
         navigate("/");
       })
       .catch((err) => {
-        console.log(err);
+        setEmail(false);
+        setToolTipPopupOpen(true);
       });
   };
 

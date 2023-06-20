@@ -7,6 +7,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import Main from "./Main";
 import Footer from "./Footer";
 import PopupWithConfirmation from "./PopupWithConfirmation";
+import InfoTooltip from "./InfoTooltip";
 import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
@@ -24,10 +25,13 @@ function App() {
     useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [isImagePopupOpen, setImagePopupOpen] = useState(false);
+  const [isToolTipPopupOpen, setToolTipPopupOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
 
@@ -46,7 +50,7 @@ function App() {
         .catch((err) => console.log(err));
     }
   }, []);
-  
+
   useEffect(() => {
     Promise.all([api.getUserInfo(), api.getCards()])
       .then(([user, cards]) => {
@@ -78,6 +82,16 @@ function App() {
     };
   }, []);
 
+  const handleRegistration = () => {
+    setIsSuccess(true);
+    setErrorMessage("");
+    setToolTipPopupOpen(true);
+  };
+
+  function handleLogin() {
+    setLoggedIn(true);
+  }
+
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
   }
@@ -101,6 +115,7 @@ function App() {
     setAddPlacePopupOpen(false);
     setPopupWithConfirmationOpen(false);
     setImagePopupOpen(false);
+    setToolTipPopupOpen(false);
     setSelectedCard({});
   }
 
@@ -187,7 +202,7 @@ function App() {
   function handleSignOut() {
     localStorage.removeItem("isLoggedIn");
     setLoggedIn(false);
-    navigate("/sign-up");
+    navigate("/sign-in");
   }
 
   return (
@@ -195,15 +210,27 @@ function App() {
       <div className="page">
         <Header email={email} onSignOut={handleSignOut} />
         <Routes>
-          <Route path="/sign-up" element={<Register />} />
+          <Route
+            path="/sign-up"
+            element={
+              <Register
+                handleRegistration={handleRegistration}
+                setLoggedIn={setLoggedIn}
+                setIsSuccess={setIsSuccess}
+                setToolTipPopupOpen={setToolTipPopupOpen}
+              />
+            }
+          />
+
           <Route
             path="/sign-in"
             element={
               <Login
-                handleLogin={() => {
-                  setLoggedIn(true);
-                }}
+                handleLogin={handleLogin}
                 setEmail={setEmail}
+                setIsSuccess={setIsSuccess}
+                setErrorMessage={setErrorMessage}
+                setToolTipPopupOpen={setToolTipPopupOpen}
               />
             }
           />
@@ -261,8 +288,15 @@ function App() {
           isOpen={isImagePopupOpen}
           onClose={closeAllPopups}
         />
+        <InfoTooltip
+          isOpen={isToolTipPopupOpen}
+          onClose={closeAllPopups}
+          isSuccess={isSuccess}
+          errorMessage={errorMessage}
+        />
       </div>
     </CurrentUserContext.Provider>
   );
 }
+
 export default App;
