@@ -1,0 +1,30 @@
+{
+  "files": {
+    "main.css": "/react-mesto-auth/static/css/main.22388c1e.css",
+    "main.js": "/react-mesto-auth/static/js/main.4b5ae169.js",
+    "static/media/Inter-Medium.woff": "/react-mesto-auth/static/media/Inter-Medium.44e343ff76a98508d309.woff",
+    "static/media/Inter-Medium.woff2": "/react-mesto-auth/static/media/Inter-Medium.01f03178adde434fc9fa.woff2",
+    "static/media/Inter-Regular.woff": "/react-mesto-auth/static/media/Inter-Regular.c18702b3e8a67a9ed30d.woff",
+    "static/media/Inter-Black.woff": "/react-mesto-auth/static/media/Inter-Black.2ebe3dc1c6172993c9e0.woff",
+    "static/media/Inter-Black.woff2": "/react-mesto-auth/static/media/Inter-Black.ab0b6694f8477d73c23d.woff2",
+    "static/media/Inter-Regular.woff2": "/react-mesto-auth/static/media/Inter-Regular.8ff87c14e442c8766db9.woff2",
+    "static/media/logo.svg": "/react-mesto-auth/static/media/logo.f4dd7725da75756eeec482ffcf86d0da.svg",
+    "static/media/icon-like.svg": "/react-mesto-auth/static/media/icon-like.1ad06e85f169668a1f36.svg",
+    "index.html": "/react-mesto-auth/index.html",
+    "static/media/icon-trash.svg": "/react-mesto-auth/static/media/icon-trash.e3c42771bff3aaa52f76.svg",
+    "static/media/icon-error.svg": "/react-mesto-auth/static/media/icon-error.d4ce2a261b68c6da973d51ef98afae1a.svg",
+    "static/media/icon-success.svg": "/react-mesto-auth/static/media/icon-success.a9eb6caf1da3ff48b215fb1dd9477d74.svg",
+    "static/media/icon-like-active.svg": "/react-mesto-auth/static/media/icon-like-active.35948469632d0421d697.svg",
+    "static/media/icon-close.svg": "/react-mesto-auth/static/media/icon-close.973e77374abfb705de40.svg",
+    "static/media/icon-add-button-mob.svg": "/react-mesto-auth/static/media/icon-add-button-mob.8e041299935e2fbbe15e.svg",
+    "static/media/icon-add-button.svg": "/react-mesto-auth/static/media/icon-add-button.13997fdf54b4cb323817.svg",
+    "static/media/icon-edit-button.svg": "/react-mesto-auth/static/media/icon-edit-button.af236f6cf67005f1d7aa.svg",
+    "static/media/icon-avatar-button.svg": "/react-mesto-auth/static/media/icon-avatar-button.ae1a976ddb506239e9f0.svg",
+    "main.22388c1e.css.map": "/react-mesto-auth/static/css/main.22388c1e.css.map",
+    "main.4b5ae169.js.map": "/react-mesto-auth/static/js/main.4b5ae169.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.22388c1e.css",
+    "static/js/main.4b5ae169.js"
+  ]
+}
