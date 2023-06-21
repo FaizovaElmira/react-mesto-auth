@@ -4,3 +4,9 @@
   padding: 16px 0 0;
   min-width: 358px;
 }
+
+@media screen and (max-width: 425px) {
+  .auth__form {
+    min-width: 260px;
+  }
+}

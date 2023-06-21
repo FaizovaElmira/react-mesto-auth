@@ -90,6 +90,7 @@ function App() {
 
   function handleLogin() {
     setLoggedIn(true);
+    setEmail("");
   }
 
   function handleEditAvatarClick() {
