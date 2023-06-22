@@ -52,13 +52,14 @@ function App() {
   }, []);
 
   useEffect(() => {
+    isLoggedIn &&
     Promise.all([api.getUserInfo(), api.getCards()])
       .then(([user, cards]) => {
         setCurrentUser(user);
         setCards(cards);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     function handleEscClose(event) {
@@ -90,7 +91,7 @@ function App() {
 
   function handleLogin() {
     setLoggedIn(true);
-    setEmail("");
+    setEmail(email);
   }
 
   function handleEditAvatarClick() {
@@ -201,7 +202,7 @@ function App() {
   }
 
   function handleSignOut() {
-    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("token");
     setLoggedIn(false);
     navigate("/sign-in");
   }
