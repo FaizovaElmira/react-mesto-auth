@@ -1,14 +1,10 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import * as auth from "../utils/auth";
 
-const Login = ({ handleLogin, setEmail, setToolTipPopupOpen }) => {
+const Login = ({ handleLogin }) => {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
   });
-
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormValue({
@@ -19,17 +15,7 @@ const Login = ({ handleLogin, setEmail, setToolTipPopupOpen }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    auth
-      .authorize(formValue.password, formValue.email)
-      .then((res) => {
-        localStorage.setItem("token", res.token);
-        handleLogin();
-        navigate("/");
-      })
-      .catch((err) => {
-        setEmail(false);
-        setToolTipPopupOpen(true);
-      });
+    handleLogin(formValue);
   };
 
   return (

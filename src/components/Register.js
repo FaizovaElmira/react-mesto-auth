@@ -1,38 +1,23 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import * as auth from "../utils/auth";
+import { Link } from "react-router-dom";
 
-function Register({ handleRegistration, setIsSuccess, setToolTipPopupOpen }) {
+const Register = ({ handleRegistration }) => {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
   });
 
-  const navigate = useNavigate();
-
-  function handleChange(e) {
+  const handleChange = (e) => {
     setFormValue({
       ...formValue,
       [e.target.name]: e.target.value,
     });
-  }
+  };
 
-  function handleSubmit(event) {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    auth
-      .register(formValue.password, formValue.email)
-      .then(() => {
-        handleRegistration();
-        setIsSuccess(true);
-        setToolTipPopupOpen(true);
-        navigate("/sign-in");
-      })
-      .catch((err) => {
-        setIsSuccess(false);
-        setToolTipPopupOpen(true);
-        console.log(err);
-      });
-  }
+    handleRegistration(formValue);
+  };
 
   return (
     <div className="auth">
@@ -65,6 +50,6 @@ function Register({ handleRegistration, setIsSuccess, setToolTipPopupOpen }) {
       </form>
     </div>
   );
-}
+};
 
 export default Register;

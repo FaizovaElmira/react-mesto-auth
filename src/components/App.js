@@ -53,12 +53,12 @@ function App() {
 
   useEffect(() => {
     isLoggedIn &&
-    Promise.all([api.getUserInfo(), api.getCards()])
-      .then(([user, cards]) => {
-        setCurrentUser(user);
-        setCards(cards);
-      })
-      .catch((err) => console.log(err));
+      Promise.all([api.getUserInfo(), api.getCards()])
+        .then(([user, cards]) => {
+          setCurrentUser(user);
+          setCards(cards);
+        })
+        .catch((err) => console.log(err));
   }, [isLoggedIn]);
 
   useEffect(() => {
@@ -83,16 +83,35 @@ function App() {
     };
   }, []);
 
-  const handleRegistration = () => {
-    setIsSuccess(true);
-    setErrorMessage("");
-    setToolTipPopupOpen(true);
+  const handleRegister = (formValue) => {
+    auth
+      .register(formValue.password, formValue.email)
+      .then(() => {
+        setIsSuccess(true);
+        setToolTipPopupOpen(true);
+        navigate("/sign-in");
+      })
+      .catch((err) => {
+        setIsSuccess(false);
+        setToolTipPopupOpen(true);
+        console.log(err);
+      });
   };
 
-  function handleLogin() {
-    setLoggedIn(true);
-    setEmail(email);
-  }
+  const handleLogin = (formValue) => {
+    auth
+      .authorize(formValue.password, formValue.email)
+      .then((res) => {
+        setLoggedIn(true);
+        setEmail(formValue.email);
+        localStorage.setItem("token", res.token);
+        navigate("/");
+      })
+      .catch((err) => {
+        setIsSuccess(false);
+        setToolTipPopupOpen(true);
+      });
+  };
 
   function handleEditAvatarClick() {
     setEditAvatarPopupOpen(true);
@@ -204,7 +223,7 @@ function App() {
   function handleSignOut() {
     localStorage.removeItem("token");
     setLoggedIn(false);
-    navigate("/sign-in");
+    navigate("/sign-in", { replace: true });
   }
 
   return (
@@ -216,7 +235,7 @@ function App() {
             path="/sign-up"
             element={
               <Register
-                handleRegistration={handleRegistration}
+                handleRegistration={handleRegister}
                 setLoggedIn={setLoggedIn}
                 setIsSuccess={setIsSuccess}
                 setToolTipPopupOpen={setToolTipPopupOpen}
