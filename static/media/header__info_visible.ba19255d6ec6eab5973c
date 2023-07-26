@@ -1,0 +1,9 @@
+// Imports
+import ___CSS_LOADER_API_SOURCEMAP_IMPORT___ from "../../../../../node_modules/css-loader/dist/runtime/sourceMaps.js";
+import ___CSS_LOADER_API_IMPORT___ from "../../../../../node_modules/css-loader/dist/runtime/api.js";
+var ___CSS_LOADER_EXPORT___ = ___CSS_LOADER_API_IMPORT___(___CSS_LOADER_API_SOURCEMAP_IMPORT___);
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".header__info_visible {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 12px;\r\n  align-items: center;\r\n  font-style: normal;\r\n  font-weight: 500;\r\n  font-size: 16px;\r\n  line-height: 20px;\r\n  font-family: \"Inter\", Arial, Helvetica, sans-serif;\r\n  color: #ffffff;\r\n  background-color: #333333;\r\n  padding: 16px;\r\n  border-radius: 8px;\r\n}\r\n", "",{"version":3,"sources":["webpack://./src/blocks/header/__info/_visible/header__info_visible"],"names":[],"mappings":"AAAA;EACE,aAAa;EACb,sBAAsB;EACtB,SAAS;EACT,mBAAmB;EACnB,kBAAkB;EAClB,gBAAgB;EAChB,eAAe;EACf,iBAAiB;EACjB,kDAAkD;EAClD,cAAc;EACd,yBAAyB;EACzB,aAAa;EACb,kBAAkB;AACpB","sourcesContent":[".header__info_visible {\r\n  display: flex;\r\n  flex-direction: column;\r\n  gap: 12px;\r\n  align-items: center;\r\n  font-style: normal;\r\n  font-weight: 500;\r\n  font-size: 16px;\r\n  line-height: 20px;\r\n  font-family: \"Inter\", Arial, Helvetica, sans-serif;\r\n  color: #ffffff;\r\n  background-color: #333333;\r\n  padding: 16px;\r\n  border-radius: 8px;\r\n}\r\n"],"sourceRoot":""}]);
+// Exports
+___CSS_LOADER_EXPORT___.locals = {};
+export default ___CSS_LOADER_EXPORT___;
